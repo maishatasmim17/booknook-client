@@ -14,6 +14,7 @@ export interface Book {
   totalReviews: number;
   createdBy: string;
   creatorEmail: string;
+  creatorName?: string;
   createdAt: string;
   updatedAt: string;
 }

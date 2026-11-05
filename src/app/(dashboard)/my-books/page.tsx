@@ -39,6 +39,11 @@ export default function MyBooksPage() {
         limit: 50,
       });
 
+      if (res.error) {
+        toast.error(res.error);
+        return;
+      }
+
       if (res.data?.books) {
         setBooks(res.data.books);
       }
@@ -62,7 +67,7 @@ export default function MyBooksPage() {
             <BookOpen className="h-8 w-8 text-amber-600" />
             My Cataloged Books
           </h1>
-          <p className="mt-1 text-sm text-neutral-500">
+          <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
             Manage the titles you have added to the BookNook library collection.
           </p>
         </div>
@@ -87,7 +92,7 @@ export default function MyBooksPage() {
           <h3 className="mt-3 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
             You haven&apos;t added any books yet
           </h3>
-          <p className="mt-1 text-sm text-neutral-500">
+          <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
             Share your favorite books with the community by cataloging your first title.
           </p>
           <div className="mt-6">

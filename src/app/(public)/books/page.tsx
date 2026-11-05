@@ -48,6 +48,11 @@ function BooksContent() {
         sortOrder,
       });
 
+      if (res.error) {
+        toast.error(res.error);
+        return;
+      }
+
       if (res.data) {
         setBooks(res.data.books);
         setTotalPages(res.data.pagination.totalPages);
@@ -55,6 +60,7 @@ function BooksContent() {
       }
     } catch (err) {
       console.error("Failed to fetch books:", err);
+      toast.error("Failed to load the book catalog. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -87,7 +93,7 @@ function BooksContent() {
           <BookOpen className="h-8 w-8 text-amber-600" />
           Library Catalog
         </h1>
-        <p className="mt-2 text-sm text-neutral-500 max-w-2xl">
+        <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400 max-w-2xl">
           Browse our entire catalog of curated titles. Use the search bar and filters to discover your next read or find books available to borrow right now.
         </p>
       </div>
@@ -175,7 +181,7 @@ function BooksContent() {
       </div>
 
       {/* Results Count & Reset Filter */}
-      <div className="mt-6 flex items-center justify-between text-xs text-neutral-500">
+      <div className="mt-6 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
         <span>
           Showing <strong>{books.length}</strong> of <strong>{totalBooks}</strong> books
           {category !== "All" && ` in ${category}`}
@@ -211,7 +217,7 @@ function BooksContent() {
           <h3 className="mt-3 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
             No books found matching your criteria
           </h3>
-          <p className="mt-1 text-sm text-neutral-500">
+          <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
             Try adjusting your search terms or relaxing category and stock filters.
           </p>
           <div className="mt-6">

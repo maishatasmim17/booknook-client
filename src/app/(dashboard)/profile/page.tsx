@@ -35,14 +35,22 @@ export default function ProfilePage() {
           bookService.getBooks({ createdBy: session.user.id }),
         ]);
 
+        if (borrowsRes.error) {
+          toast.error(borrowsRes.error);
+        }
+        if (booksRes.error) {
+          toast.error(booksRes.error);
+        }
+
         if (borrowsRes.data) {
           setActiveBorrowsCount(borrowsRes.data.length);
         }
         if (booksRes.data?.books) {
           setCatalogedBooksCount(booksRes.data.books.length);
         }
-      } catch (err) {
+      } catch (err: any) {
         console.error("Failed to load profile stats:", err);
+        toast.error(err?.message || "Failed to load your profile statistics.");
       }
     }
 
@@ -115,7 +123,7 @@ export default function ProfilePage() {
               </span>
             </div>
 
-            <p className="flex items-center justify-center sm:justify-start gap-2 text-sm text-neutral-500">
+            <p className="flex items-center justify-center sm:justify-start gap-2 text-sm text-neutral-500 dark:text-neutral-400">
               <Mail className="h-4 w-4" />
               <span>{user.email}</span>
             </p>
@@ -155,7 +163,7 @@ export default function ProfilePage() {
           <h3 className="mt-4 text-base font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-amber-600">
             Active Borrowed Books
           </h3>
-          <p className="mt-1 text-xs text-neutral-500">
+          <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
             View your current loans, check due dates, and return books.
           </p>
         </Link>
@@ -175,7 +183,7 @@ export default function ProfilePage() {
           <h3 className="mt-4 text-base font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-emerald-600">
             Books Added to Catalog
           </h3>
-          <p className="mt-1 text-xs text-neutral-500">
+          <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
             Manage your cataloged book titles, edit copies, or remove listings.
           </p>
         </Link>

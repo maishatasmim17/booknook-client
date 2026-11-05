@@ -20,7 +20,7 @@ export function BookCard({
   onDeleteClick,
   isOwner = false,
 }: BookCardProps) {
-  const id = book.id || (book as any)._id;
+  const id = book.id || book._id || "";
   const isAvailable = book.availableCopies > 0;
 
   return (
@@ -65,7 +65,7 @@ export function BookCard({
 
         {/* Book Info */}
         <div className="mt-4">
-          <div className="flex items-center justify-between text-xs text-neutral-500">
+          <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
             <span className="flex items-center gap-1">
               <User className="h-3.5 w-3.5" />
               <span className="truncate max-w-[140px]">{book.author}</span>
@@ -82,7 +82,7 @@ export function BookCard({
             </h3>
           </Link>
 
-          <p className="mt-1 text-xs text-neutral-500 line-clamp-2 leading-relaxed">
+          <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed">
             {book.description}
           </p>
         </div>

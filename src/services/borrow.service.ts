@@ -13,6 +13,7 @@ export interface BorrowRecord {
   borrowDate: string;
   dueDate: string;
   returnDate?: string | null;
+  returnedAt?: string | null;
   status: "borrowed" | "returned";
   createdAt: string;
   updatedAt: string;
@@ -34,10 +35,10 @@ export const borrowService = {
     return { data: res.data, error: res.error };
   },
 
-  async returnBorrow(borrowId: string): Promise<{ success: boolean; error: string | null }> {
+  async returnBorrow(borrowId: string): Promise<{ success: boolean; data: any | null; error: string | null }> {
     const res = await apiClient(`/borrows/${borrowId}`, {
       method: "DELETE",
     });
-    return { success: !res.error, error: res.error };
+    return { success: !res.error, data: res.data, error: res.error };
   },
 };

@@ -48,9 +48,20 @@ function BorrowsView() {
         toast.error(res.error);
       } else {
         toast.success(`Successfully returned "${title}" to the library!`, {
-          description: "Inventory copies have been updated.",
+          description: "Inventory copies have been updated. The loan is kept in your history.",
         });
-        setBorrows((prev) => prev.filter((b) => b.id !== id && (b as any)._id !== id));
+        setBorrows((prev) =>
+          prev.map((b) => {
+            const recordId = b.id || (b as any)._id;
+            return recordId === id
+              ? {
+                  ...b,
+                  status: "returned" as const,
+                  returnedAt: res.data?.returnedAt || new Date().toISOString(),
+                }
+              : b;
+          })
+        );
       }
     } catch (err: any) {
       toast.error(err?.message || "Failed to return book");
@@ -68,8 +79,8 @@ function BorrowsView() {
             <Library className="h-8 w-8 text-amber-600" />
             My Borrowed Books & Loans
           </h1>
-          <p className="mt-1 text-sm text-neutral-500">
-            Track your current reading loans, due dates, and return books when you finish reading.
+          <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+            Track your current reading loans, due dates, and return books when you finish reading. Returned loans stay here as your borrowing history.
           </p>
         </div>
 
@@ -91,9 +102,9 @@ function BorrowsView() {
         <div className="mt-12 rounded-2xl border border-dashed border-neutral-300 p-12 text-center dark:border-neutral-800">
           <Library className="mx-auto h-12 w-12 text-neutral-400" />
           <h3 className="mt-3 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-            You have no active loans
+            You have no borrow records yet
           </h3>
-          <p className="mt-1 text-sm text-neutral-500">
+          <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
             Explore our collection to borrow your next favorite story.
           </p>
           <div className="mt-6">
@@ -110,19 +121,19 @@ function BorrowsView() {
           <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-800">
             <thead className="bg-neutral-50 dark:bg-neutral-950/40">
               <tr>
-                <th className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                <th className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
                   Image
                 </th>
-                <th className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                <th className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
                   Title
                 </th>
-                <th className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                <th className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
                   Borrow Date
                 </th>
-                <th className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                <th className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
                   Return Date
                 </th>
-                <th className="px-4 py-3 text-right text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                <th className="px-4 py-3 text-right text-[11px] font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
                   Return Book
                 </th>
               </tr>
@@ -131,8 +142,10 @@ function BorrowsView() {
               {borrows.map((record) => {
                 const id = record.id || (record as any)._id;
                 const borrowDate = new Date(record.borrowDate);
-                const returnDate = new Date(record.returnDate || record.dueDate);
-                const isOverdue = returnDate.getTime() < Date.now();
+                const dueDate = new Date(record.returnDate || record.dueDate);
+                const isReturned = record.status === "returned";
+                const displayDate = isReturned && record.returnedAt ? new Date(record.returnedAt) : dueDate;
+                const isOverdue = !isReturned && dueDate.getTime() < Date.now();
 
                 return (
                   <tr key={id} className="hover:bg-neutral-50/70 dark:hover:bg-neutral-800/40">
@@ -164,26 +177,38 @@ function BorrowsView() {
                           : "text-neutral-700 dark:text-neutral-200"
                       }`}
                     >
-                      {returnDate.toLocaleDateString()}
-                      {isOverdue && (
-                        <span className="ml-2 rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-bold uppercase text-red-700 dark:bg-red-950 dark:text-red-400">
-                          Overdue
+                      {displayDate.toLocaleDateString()}
+                      {isReturned ? (
+                        <span className="ml-2 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold uppercase text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">
+                          Returned
                         </span>
+                      ) : (
+                        isOverdue && (
+                          <span className="ml-2 rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-bold uppercase text-red-700 dark:bg-red-950 dark:text-red-400">
+                            Overdue
+                          </span>
+                        )
                       )}
                     </td>
                     <td className="whitespace-nowrap px-4 py-4 text-right">
-                      <button
-                        onClick={() => handleReturn(id, record.bookTitle)}
-                        disabled={returningId === id}
-                        className="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-4 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-neutral-800 disabled:opacity-60 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
-                      >
-                        {returningId === id ? (
-                          <Loader2 className="h-4 w-4 animate-spin" />
-                        ) : (
-                          <RotateCcw className="h-4 w-4" />
-                        )}
-                        <span>Return Book</span>
-                      </button>
+                      {isReturned ? (
+                        <span className="inline-flex items-center rounded-lg bg-emerald-50 px-4 py-2 text-xs font-bold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
+                          Completed
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => handleReturn(id, record.bookTitle)}
+                          disabled={returningId === id}
+                          className="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-4 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-neutral-800 disabled:opacity-60 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
+                        >
+                          {returningId === id ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            <RotateCcw className="h-4 w-4" />
+                          )}
+                          <span>Return Book</span>
+                        </button>
+                      )}
                     </td>
                   </tr>
                 );

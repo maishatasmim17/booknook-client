@@ -21,7 +21,7 @@ export default function NotFound() {
         Lost in the Stacks?
       </h1>
 
-      <p className="mt-3 max-w-md text-sm text-neutral-500 leading-relaxed">
+      <p className="mt-3 max-w-md text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
         The book, shelf, or page you are looking for appears to have been checked out, archived, or misfiled in another section of the library.
       </p>
 

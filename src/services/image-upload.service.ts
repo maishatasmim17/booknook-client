@@ -1,5 +1,8 @@
 /**
- * Utility service to handle image uploads to imgbb API
+ * Uploads a book cover to imgbb through the app's own /api/upload route.
+ *
+ * The route keeps the imgbb API key on the server, so only IMGBB_API_KEY (or
+ * the legacy NEXT_PUBLIC_IMGBB_API_KEY) is required in client/.env.local.
  */
 export async function uploadToImgbb(
   file: File
@@ -23,34 +26,33 @@ export async function uploadToImgbb(
       };
     }
 
-    const apiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
-    if (!apiKey || apiKey === "your_imgbb_api_key") {
-      return {
-        url: null,
-        error:
-          "Image upload is not configured. Add NEXT_PUBLIC_IMGBB_API_KEY to client/.env.local, or paste a direct image URL instead.",
-      };
-    }
-
     const formData = new FormData();
     formData.append("image", file);
 
-    const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+    const response = await fetch("/api/upload", {
       method: "POST",
       body: formData,
     });
 
-    const data = await response.json();
+    const data = await response.json().catch(() => null);
 
-    if (!response.ok || !data.success) {
+    if (!response.ok) {
       return {
         url: null,
-        error: data?.error?.message || "Failed to upload image to imgbb",
+        error:
+          data?.error ||
+          "Failed to upload image. You can paste a direct image URL instead.",
       };
     }
 
-    const imageUrl = data.data.url || data.data.display_url;
-    return { url: imageUrl, error: null };
+    if (!data?.url) {
+      return {
+        url: null,
+        error: "The upload succeeded but no image URL was returned.",
+      };
+    }
+
+    return { url: data.url, error: null };
   } catch (error: any) {
     return {
       url: null,
@@ -58,4 +60,3 @@ export async function uploadToImgbb(
     };
   }
 }
-

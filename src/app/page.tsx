@@ -104,7 +104,7 @@ function HomeView() {
             <h2 className="mt-1 text-2xl sm:text-3xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-100">
               Latest Books in the Library
             </h2>
-            <p className="mt-1 text-sm text-neutral-500">
+            <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
               Recently cataloged titles ready for you to explore and borrow.
             </p>
           </div>
@@ -130,7 +130,7 @@ function HomeView() {
             <h3 className="mt-3 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
               No books cataloged yet
             </h3>
-            <p className="mt-1 text-sm text-neutral-500">
+            <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
               Be the first to add a book to the BookNook online collection!
             </p>
             <div className="mt-6">
@@ -186,7 +186,7 @@ function HomeView() {
             <h2 className="mt-1 text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-3xl">
               Popular Literary Genres
             </h2>
-            <p className="mt-2 text-sm text-neutral-500">
+            <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
               Browse through our diverse stacks to find books that match your curiosity.
             </p>
           </div>
@@ -207,7 +207,7 @@ function HomeView() {
                     <h3 className="text-sm font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-amber-600 dark:group-hover:text-amber-400">
                       {cat.name}
                     </h3>
-                    <p className="text-xs text-neutral-500">{cat.count}</p>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400">{cat.count}</p>
                   </div>
                 </Link>
               );
@@ -226,7 +226,7 @@ function HomeView() {
             <h3 className="mt-4 text-base font-bold text-neutral-900 dark:text-neutral-100">
               Flexible Loan Periods
             </h3>
-            <p className="mt-2 text-xs text-neutral-500 leading-relaxed">
+            <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
               Borrow books for 7, 14, or 30 days. Manage your loans effortlessly from your reader dashboard with due date reminders.
             </p>
           </div>
@@ -238,7 +238,7 @@ function HomeView() {
             <h3 className="mt-4 text-base font-bold text-neutral-900 dark:text-neutral-100">
               Atomic Inventory Tracking
             </h3>
-            <p className="mt-2 text-xs text-neutral-500 leading-relaxed">
+            <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
               Real-time copy count updates prevent double-borrowing. Always know which titles are on the shelf before heading to checkout.
             </p>
           </div>
@@ -250,7 +250,7 @@ function HomeView() {
             <h3 className="mt-4 text-base font-bold text-neutral-900 dark:text-neutral-100">
               Community Curation
             </h3>
-            <p className="mt-2 text-xs text-neutral-500 leading-relaxed">
+            <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
               Every member can contribute to our growing library by cataloging new books, writing honest reviews, and sharing recommendations.
             </p>
           </div>

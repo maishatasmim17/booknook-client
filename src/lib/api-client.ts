@@ -1,6 +1,9 @@
 import { authClient } from "./auth-client";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+// Base URL of the Express API. Set NEXT_PUBLIC_API_URL in .env.local for local
+// development and in the Vercel project settings for production. Never hardcode
+// a localhost URL here, otherwise the deployed client calls the user's machine.
+const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/+$/, "");
 
 interface FetchOptions extends RequestInit {
   params?: Record<string, string | number | boolean | undefined>;
@@ -17,6 +20,14 @@ export async function apiClient<T = any>(
   endpoint: string,
   options: FetchOptions = {}
 ): Promise<{ data: T | null; message?: string; error: string | null; status: number }> {
+  if (!API_BASE_URL) {
+    return {
+      data: null,
+      error: "API URL is not configured. Set NEXT_PUBLIC_API_URL in your environment.",
+      status: 500,
+    };
+  }
+
   try {
     const { params, headers, ...customConfig } = options;
 

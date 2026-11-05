@@ -64,7 +64,7 @@ export function Footer() {
                 <span className="text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
                   Book<span className="text-amber-600">Nook</span>
                 </span>
-                <span className="block -mt-1 text-[10px] font-medium uppercase tracking-widest text-neutral-500">
+                <span className="block -mt-1 text-[10px] font-medium uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
                   Online Library
                 </span>
               </div>
@@ -144,7 +144,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-neutral-200 pt-6 text-xs text-neutral-500 dark:border-neutral-800 sm:flex-row">
+        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-neutral-200 pt-6 text-xs text-neutral-500 dark:text-neutral-400 dark:border-neutral-800 sm:flex-row">
           <p>&copy; {year ?? 2026} BookNook. All rights reserved.</p>
           <p>Built with Next.js, Better Auth &amp; Express.</p>
         </div>

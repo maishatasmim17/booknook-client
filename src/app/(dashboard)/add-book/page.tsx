@@ -106,7 +106,7 @@ export default function AddBookPage() {
       <div className="border-b border-neutral-200 pb-6 dark:border-neutral-800">
         <Link
           href="/books"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-500 hover:text-amber-600 mb-2"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-500 dark:text-neutral-400 hover:text-amber-600 mb-2"
         >
           <ArrowLeft className="h-4 w-4" />
           <span>Back to Library Catalog</span>
@@ -115,7 +115,7 @@ export default function AddBookPage() {
           <BookOpen className="h-8 w-8 text-amber-600" />
           Add a New Book to the Library
         </h1>
-        <p className="mt-1 text-sm text-neutral-500">
+        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
           Catalog a new title into the BookNook collection. Fill in the metadata and upload a cover image via imgbb.
         </p>
       </div>

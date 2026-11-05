@@ -78,7 +78,7 @@ function BookDetailView({ params }: PageProps) {
         <h2 className="mt-4 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
           Book Not Found
         </h2>
-        <p className="mt-2 text-sm text-neutral-500">
+        <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
           The requested title does not exist or may have been removed from the library catalog.
         </p>
         <div className="mt-6">
@@ -112,7 +112,7 @@ function BookDetailView({ params }: PageProps) {
       <div className="flex items-center justify-between border-b border-neutral-200 pb-4 dark:border-neutral-800">
         <Link
           href="/books"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-500 hover:text-amber-600 dark:hover:text-amber-400"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-500 dark:text-neutral-400 hover:text-amber-600 dark:hover:text-amber-400"
         >
           <ArrowLeft className="h-4 w-4" />
           <span>Back to All Books</span>
@@ -149,7 +149,7 @@ function BookDetailView({ params }: PageProps) {
           {/* Quick Details Box */}
           <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 space-y-3">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-neutral-500 flex items-center gap-1.5">
+              <span className="text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5">
                 <Layers className="h-4 w-4" />
                 Category
               </span>
@@ -159,7 +159,7 @@ function BookDetailView({ params }: PageProps) {
             </div>
 
             <div className="flex items-center justify-between text-xs">
-              <span className="text-neutral-500 flex items-center gap-1.5">
+              <span className="text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5">
                 <BookOpen className="h-4 w-4" />
                 Total Copies
               </span>
@@ -169,7 +169,7 @@ function BookDetailView({ params }: PageProps) {
             </div>
 
             <div className="flex items-center justify-between text-xs">
-              <span className="text-neutral-500 flex items-center gap-1.5">
+              <span className="text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5">
                 <CheckCircle2 className="h-4 w-4" />
                 Available on Shelf
               </span>
@@ -183,7 +183,7 @@ function BookDetailView({ params }: PageProps) {
             </div>
 
             <div className="flex items-center justify-between text-xs">
-              <span className="text-neutral-500 flex items-center gap-1.5">
+              <span className="text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5">
                 <Calendar className="h-4 w-4" />
                 Cataloged On
               </span>
@@ -195,7 +195,7 @@ function BookDetailView({ params }: PageProps) {
 
           {/* Added By */}
           <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-500">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
               Added to the Library By
             </h4>
             <div className="mt-3 flex items-center gap-3">
@@ -204,9 +204,9 @@ function BookDetailView({ params }: PageProps) {
               </div>
               <div className="min-w-0">
                 <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 truncate">
-                  {book.creatorEmail?.split("@")[0] || "BookNook Member"}
+                  {book.creatorName || book.creatorEmail?.split("@")[0] || "BookNook Member"}
                 </p>
-                <p className="text-xs text-neutral-500 truncate">{book.creatorEmail}</p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400 truncate">{book.creatorEmail}</p>
               </div>
             </div>
           </div>
@@ -289,10 +289,10 @@ function BookDetailView({ params }: PageProps) {
           {/* Creator & Admin Actions (Edit / Delete) */}
           {isOwner && (
             <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-5 dark:border-neutral-800 dark:bg-neutral-900/50">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-500">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
                 Book Management Controls
               </h4>
-              <p className="mt-1 text-xs text-neutral-500">
+              <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
                 You added this title to the library catalog. You can edit its inventory or metadata, or remove it from the collection.
               </p>
               <div className="mt-4 flex items-center gap-3">
@@ -300,7 +300,7 @@ function BookDetailView({ params }: PageProps) {
                   onClick={() => setIsEditModalOpen(true)}
                   className="flex items-center gap-2 rounded-xl border border-neutral-300 bg-white px-4 py-2 text-xs font-semibold text-neutral-700 shadow-sm transition hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
                 >
-                  <Edit className="h-4 w-4 text-neutral-500" />
+                  <Edit className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
                   <span>Edit Book Details</span>
                 </button>
 

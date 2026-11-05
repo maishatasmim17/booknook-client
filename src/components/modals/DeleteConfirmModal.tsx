@@ -55,7 +55,7 @@ export function DeleteConfirmModal({
             <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-100">
               Delete Book?
             </h3>
-            <p className="mt-1 text-xs text-neutral-500">
+            <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
               Are you sure you want to delete <strong className="text-neutral-800 dark:text-neutral-200">&ldquo;{book.title}&rdquo;</strong>? This action cannot be undone.
             </p>
             {book.totalCopies !== book.availableCopies && (

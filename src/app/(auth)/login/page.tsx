@@ -97,7 +97,7 @@ function LoginForm() {
             className="flex w-full items-center justify-center gap-3 rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm font-semibold text-neutral-700 shadow-sm transition hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 disabled:opacity-60 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
           >
             {googleLoading ? (
-              <Loader2 className="h-4 w-4 animate-spin text-neutral-500" />
+              <Loader2 className="h-4 w-4 animate-spin text-neutral-500 dark:text-neutral-400" />
             ) : (
               <svg className="h-4 w-4" viewBox="0 0 24 24">
                 <path

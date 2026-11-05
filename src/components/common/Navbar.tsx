@@ -75,7 +75,7 @@ export function Navbar() {
             <span className="text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
               Book<span className="text-amber-600">Nook</span>
             </span>
-            <span className="block text-[10px] -mt-1 font-medium text-neutral-500 uppercase tracking-widest">
+            <span className="block text-[10px] -mt-1 font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
               Online Library
             </span>
           </div>
@@ -158,7 +158,7 @@ export function Navbar() {
                   <div className="text-xs font-semibold text-neutral-900 dark:text-neutral-100">
                     {user.name || "Reader"}
                   </div>
-                  <div className="text-[10px] text-neutral-500 capitalize">
+                  <div className="text-[10px] text-neutral-500 dark:text-neutral-400 capitalize">
                     {(user as any).role || "Member"}
                   </div>
                 </div>
@@ -172,7 +172,7 @@ export function Navbar() {
                     <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
                       {user.name}
                     </p>
-                    <p className="text-xs text-neutral-500 truncate">{user.email}</p>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400 truncate">{user.email}</p>
                     <div className="mt-1.5 inline-flex items-center rounded-md bg-amber-50 px-2 py-0.5 text-[10px] font-medium text-amber-700 dark:bg-amber-950/60 dark:text-amber-400">
                       {isAdmin ? "Administrator" : "Library Member"}
                     </div>
@@ -184,7 +184,7 @@ export function Navbar() {
                       onClick={() => setDropdownOpen(false)}
                       className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
                     >
-                      <User className="h-4 w-4 text-neutral-500" />
+                      <User className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
                       My Profile & Stats
                     </Link>
 
@@ -193,7 +193,7 @@ export function Navbar() {
                       onClick={() => setDropdownOpen(false)}
                       className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
                     >
-                      <Library className="h-4 w-4 text-neutral-500" />
+                      <Library className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
                       My Borrowed Books
                     </Link>
 
@@ -202,7 +202,7 @@ export function Navbar() {
                       onClick={() => setDropdownOpen(false)}
                       className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
                     >
-                      <BookMarked className="h-4 w-4 text-neutral-500" />
+                      <BookMarked className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
                       My Added Books
                     </Link>
 

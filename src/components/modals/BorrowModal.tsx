@@ -118,7 +118,7 @@ export function BorrowModal({ book, isOpen, onClose, onSuccess }: BorrowModalPro
             <h4 className="font-bold text-neutral-900 dark:text-neutral-100 line-clamp-1">
               {book.title}
             </h4>
-            <p className="text-xs text-neutral-500">by {book.author}</p>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">by {book.author}</p>
             <div className="mt-2 flex items-center gap-2">
               <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">
                 {book.availableCopies} of {book.totalCopies} available

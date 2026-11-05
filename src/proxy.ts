@@ -39,9 +39,26 @@ export function proxy(request: NextRequest) {
   // If authenticated user attempts to visit /login or /register
   if (isAuthRoute && isAuthenticated) {
     const callbackUrlParam = request.nextUrl.searchParams.get("callbackUrl");
+
+    // Only follow safe, root-relative callback URLs. Never bounce back to an
+    // auth page (or the page we are already on) - doing so redirects to the
+    // same URL forever, which is what makes the browser spin on "too many
+    // redirects" after signing up/in.
     let target = "/";
-    if (callbackUrlParam && callbackUrlParam.startsWith("/")) {
-      target = callbackUrlParam;
+    if (
+      callbackUrlParam &&
+      callbackUrlParam.startsWith("/") &&
+      !callbackUrlParam.startsWith("//") &&
+      !callbackUrlParam.includes("\\")
+    ) {
+      const callbackPath = new URL(callbackUrlParam, request.url).pathname;
+      const callbackIsAuthRoute = authRoutes.some(
+        (route) => callbackPath === route || callbackPath.startsWith(`${route}/`)
+      );
+
+      if (!callbackIsAuthRoute && callbackPath !== pathname) {
+        target = callbackUrlParam;
+      }
     }
     return NextResponse.redirect(new URL(target, request.url));
   }
